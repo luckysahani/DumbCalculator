@@ -1,18 +1,12 @@
 package com.example.lucky.dumbcalculator;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.JsonReader;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,26 +16,23 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 
+public class AdvancedCalculator extends AppCompatActivity implements View.OnClickListener{
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
+    private Button normalCalculator;
     private EditText number1;
-    private EditText number2;
-    private Button add;
-    private Button subtract;
-    private Button multiply;
-    private Button divide;
+    private Button sin;
+    private Button cos;
+    private Button tan;
+    private Button exp;
+    private Button log;
+    private Button sqrt;
     private Button clear;
     private Button advancedCalculator;
 
@@ -49,101 +40,82 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String resultText;
 
     private String serverURL = "http://52.26.129.180:8080/";
-    private String addURL = serverURL+"add";
-    private String multiplyURL = serverURL+"multiply";
-    private String subtractURL = serverURL+"subtract";
-    private String divideURL = serverURL+"divide";
+    private String sinURL = serverURL+"sin";
+    private String cosURL = serverURL+"cos";
+    private String expURL = serverURL+"exp";
+    private String tanURL = serverURL+"tan";
+    private String logURL = serverURL+"log";
+    private String sqrtURL = serverURL+"sqrt";
     private String charset = "UTF-8";
 
     private String num1;
-    private String num2;
 
     private String finalResult;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_advanced_calculator);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         number1 = (EditText) findViewById(R.id.number1);
-        number2 = (EditText) findViewById(R.id.number2);
-        add = (Button) findViewById(R.id.add);
-        subtract = (Button) findViewById(R.id.subtract);
-        multiply = (Button) findViewById(R.id.multiply);
-        divide = (Button) findViewById(R.id.divide);
+
+        sin = (Button) findViewById(R.id.sin);
+        cos = (Button) findViewById(R.id.cos);
+        tan = (Button) findViewById(R.id.tan);
+        exp = (Button) findViewById(R.id.exp);
+        log = (Button) findViewById(R.id.log);
+        sqrt = (Button) findViewById(R.id.sqrt);
         clear = (Button) findViewById(R.id.clear);
-        advancedCalculator = (Button)findViewById(R.id.advancedcalculator);
-        advancedCalculator.setOnClickListener(this);
         resultBox = (TextView)findViewById(R.id.resultBox);
-        add.setOnClickListener(this);
-        subtract.setOnClickListener(this);
-        multiply.setOnClickListener(this);
-        divide.setOnClickListener(this);
+        sin.setOnClickListener(this);
+        cos.setOnClickListener(this);
+        tan.setOnClickListener(this);
+        exp.setOnClickListener(this);
+        log.setOnClickListener(this);
+        sqrt.setOnClickListener(this);
         clear.setOnClickListener(this);
 
-
-        //
-
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        normalCalculator = (Button)findViewById(R.id.normalcalculator);
+        normalCalculator.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         num1 = number1.getText().toString();
-        num2 = number2.getText().toString();
-        if(v==add){
-            getResultFromServer(num1, num2, "add",addURL);
+        if(v==normalCalculator){
+            this.finish();
         }
-        else if(v==multiply){
-            getResultFromServer(num1, num2, "multiply",multiplyURL);
+        else if(v==sin){
+            getResultFromServer(num1, "sin",sinURL);
         }
-        else if(v==subtract){
-            getResultFromServer(num1, num2, "subtract",subtractURL);
+        else if(v==cos){
+            getResultFromServer(num1, "cos",cosURL);
         }
-        else if(v==divide){
-            getResultFromServer(num1, num2, "divide",divideURL);
+        else if(v==tan){
+            getResultFromServer(num1, "tan",tanURL);
+        }
+        else if(v==log){
+            getResultFromServer(num1, "log",logURL);
+        }
+        else if(v==exp){
+            getResultFromServer(num1, "exp", expURL);
+        }
+        else if(v==sqrt){
+            getResultFromServer(num1, "sqrt", sqrtURL);
         }
         else if(v==clear){
             number1.setText("");
-            number2.setText("");
             resultBox.setText("Result will be displayed here");
-        }
-        else if(v == advancedCalculator){
-            Intent intent = new Intent(MainActivity.this, AdvancedCalculator.class);
-            startActivity(intent);
         }
     }
 
-
-    private void getResultFromServer(String num1, String num2, final String type, final String finalURL){
+    private void getResultFromServer(String num1, final String type, final String finalURL){
         try {
-            final String query = String.format("num1=%s&num2=%s",
-                    URLEncoder.encode(num1, charset),
-                    URLEncoder.encode(num2, charset));
+            final String query = String.format("num1=%s",
+                    URLEncoder.encode(num1, charset));
 
             Thread thread = new Thread(){
                 @Override
@@ -154,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         JSONObject jsonObject = new JSONObject(finalResultTemp);
                         if(jsonObject.get("status").equals("true")){
                             finalResult = jsonObject.get(type).toString();
-                            MainActivity.this.runOnUiThread(new Runnable() {
+                            AdvancedCalculator.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     resultText = finalResult;
