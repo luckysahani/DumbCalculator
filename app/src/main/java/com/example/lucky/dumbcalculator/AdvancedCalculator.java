@@ -85,30 +85,31 @@ public class AdvancedCalculator extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         num1 = number1.getText().toString();
-        if(v==normalCalculator){
+        if (v == normalCalculator) {
             this.finish();
         }
-        else if(v==sin){
-            getResultFromServer(num1, "sin",sinURL);
-        }
-        else if(v==cos){
-            getResultFromServer(num1, "cos",cosURL);
-        }
-        else if(v==tan){
-            getResultFromServer(num1, "tan",tanURL);
-        }
-        else if(v==log){
-            getResultFromServer(num1, "log",logURL);
-        }
-        else if(v==exp){
-            getResultFromServer(num1, "exp", expURL);
-        }
-        else if(v==sqrt){
-            getResultFromServer(num1, "sqrt", sqrtURL);
-        }
-        else if(v==clear){
+        else if (v == clear) {
             number1.setText("");
             resultBox.setText("Result will be displayed here");
+        }
+        else {
+            if (num1.length() == 0) {
+                number1.setError("First number is required!");
+            } else {
+                if (v == sin) {
+                    getResultFromServer(num1, "sin", sinURL);
+                } else if (v == cos) {
+                    getResultFromServer(num1, "cos", cosURL);
+                } else if (v == tan) {
+                    getResultFromServer(num1, "tan", tanURL);
+                } else if (v == log) {
+                    getResultFromServer(num1, "log", logURL);
+                } else if (v == exp) {
+                    getResultFromServer(num1, "exp", expURL);
+                } else if (v == sqrt) {
+                    getResultFromServer(num1, "sqrt", sqrtURL);
+                }
+            }
         }
     }
 

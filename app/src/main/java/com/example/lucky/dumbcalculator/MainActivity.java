@@ -82,11 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         multiply.setOnClickListener(this);
         divide.setOnClickListener(this);
         clear.setOnClickListener(this);
-
-
-        //
-
-
     }
 
     @Override
@@ -115,26 +110,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         num1 = number1.getText().toString();
         num2 = number2.getText().toString();
-        if(v==add){
-            getResultFromServer(num1, num2, "add",addURL);
-        }
-        else if(v==multiply){
-            getResultFromServer(num1, num2, "multiply",multiplyURL);
-        }
-        else if(v==subtract){
-            getResultFromServer(num1, num2, "subtract",subtractURL);
-        }
-        else if(v==divide){
-            getResultFromServer(num1, num2, "divide",divideURL);
-        }
-        else if(v==clear){
+
+        if (v == clear) {
             number1.setText("");
             number2.setText("");
             resultBox.setText("Result will be displayed here");
-        }
-        else if(v == advancedCalculator){
+        } else if (v == advancedCalculator) {
             Intent intent = new Intent(MainActivity.this, AdvancedCalculator.class);
             startActivity(intent);
+        }
+        else{
+            if( num1.length() == 0 ) {
+                number1.requestFocus();
+                number1.setError("First number is required!");
+            }
+            else if( num2.length() == 0 ) {
+                number2.requestFocus();
+                number2.setError("Second number is required!");
+            }
+            else {
+                if (v == add) {
+                    getResultFromServer(num1, num2, "add", addURL);
+                } else if (v == multiply) {
+                    getResultFromServer(num1, num2, "multiply", multiplyURL);
+                } else if (v == subtract) {
+                    getResultFromServer(num1, num2, "subtract", subtractURL);
+                } else if (v == divide) {
+                    getResultFromServer(num1, num2, "divide", divideURL);
+                }
+            }
         }
     }
 
