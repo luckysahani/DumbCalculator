@@ -25,32 +25,7 @@ import java.net.URLEncoder;
 
 public class AdvancedCalculator extends AppCompatActivity implements View.OnClickListener{
 
-    private Button normalCalculator;
-    private EditText number1;
-    private Button sin;
-    private Button cos;
-    private Button tan;
-    private Button exp;
-    private Button log;
-    private Button sqrt;
-    private Button clear;
-    private Button advancedCalculator;
 
-    private TextView resultBox;
-    private String resultText;
-
-    private String serverURL = "http://52.26.129.180:8080/";
-    private String sinURL = serverURL+"sin";
-    private String cosURL = serverURL+"cos";
-    private String expURL = serverURL+"exp";
-    private String tanURL = serverURL+"tan";
-    private String logURL = serverURL+"log";
-    private String sqrtURL = serverURL+"sqrt";
-    private String charset = "UTF-8";
-
-    private String num1;
-
-    private String finalResult;
 
 
     @Override
@@ -60,98 +35,15 @@ public class AdvancedCalculator extends AppCompatActivity implements View.OnClic
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        number1 = (EditText) findViewById(R.id.number1);
 
-        sin = (Button) findViewById(R.id.sin);
-        cos = (Button) findViewById(R.id.cos);
-        tan = (Button) findViewById(R.id.tan);
-        exp = (Button) findViewById(R.id.exp);
-        log = (Button) findViewById(R.id.log);
-        sqrt = (Button) findViewById(R.id.sqrt);
-        clear = (Button) findViewById(R.id.clear);
-        resultBox = (TextView)findViewById(R.id.resultBox);
-        sin.setOnClickListener(this);
-        cos.setOnClickListener(this);
-        tan.setOnClickListener(this);
-        exp.setOnClickListener(this);
-        log.setOnClickListener(this);
-        sqrt.setOnClickListener(this);
-        clear.setOnClickListener(this);
-
-        normalCalculator = (Button)findViewById(R.id.normalcalculator);
-        normalCalculator.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        num1 = number1.getText().toString();
-        if (v == normalCalculator) {
-            this.finish();
-        }
-        else if (v == clear) {
-            number1.setText("");
-            resultBox.setText("Result will be displayed here");
-        }
-        else {
-            if (num1.length() == 0) {
-                number1.setError("First number is required!");
-            } else {
-                if (v == sin) {
-                    getResultFromServer(num1, "sin", sinURL);
-                } else if (v == cos) {
-                    getResultFromServer(num1, "cos", cosURL);
-                } else if (v == tan) {
-                    getResultFromServer(num1, "tan", tanURL);
-                } else if (v == log) {
-                    getResultFromServer(num1, "log", logURL);
-                } else if (v == exp) {
-                    getResultFromServer(num1, "exp", expURL);
-                } else if (v == sqrt) {
-                    getResultFromServer(num1, "sqrt", sqrtURL);
-                }
-            }
-        }
-    }
-
-    private void getResultFromServer(String num1, final String type, final String finalURL){
-        try {
-            final String query = String.format("num1=%s",
-                    URLEncoder.encode(num1, charset));
-
-            Thread thread = new Thread(){
-                @Override
-                public void run() {
-
-                    final String finalResultTemp =  excutePost(finalURL, query);
-                    try {
-                        JSONObject jsonObject = new JSONObject(finalResultTemp);
-                        if(jsonObject.get("status").equals("true")){
-                            finalResult = jsonObject.get(type).toString();
-                            AdvancedCalculator.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    resultText = finalResult;
-//                                    resultText = "The "+type+" of " + number1.getText().toString()+ " and " + number2.getText().toString()+ " is " + finalResult;
-                                    resultBox.setText(resultText);
-                                }
-                            });
-                        }
-                        else{
-                            finalResult = "Trying to hack !!! Huh :?";
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-
-            thread.start();
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
 
     }
+
+
 
 
     private String excutePost(String targetURL, String urlParameters) {

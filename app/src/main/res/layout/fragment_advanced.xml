@@ -1,0 +1,137 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#f5f5f5"
+    tools:context="com.example.lucky.dumbcalculator.AdvancedFragment">
+
+
+    <EditText
+        android:id="@+id/number1"
+        android:layout_marginTop="20dp"
+        android:hint="Enter some number"
+        android:padding="12dp"
+        android:inputType="numberDecimal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/number1"
+        android:weightSum="3"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/sin"
+            android:textAllCaps="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sin"
+            android:layout_weight="1"
+            android:textSize="24dp"
+            android:padding="12dp"
+            android:background="@android:color/white"
+            android:textColor="#407183"/>
+
+        <Button
+            android:id="@+id/cos"
+            android:layout_width="wrap_content"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="cos"
+            android:textSize="24dp"
+            android:padding="12dp"
+            android:background="@android:color/white"
+            android:textColor="#407183"/>
+
+        <Button
+            android:id="@+id/tan"
+            android:layout_width="wrap_content"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:text="tan"
+            android:layout_weight="1"
+            android:textSize="24dp"
+            android:padding="12dp"
+            android:background="@android:color/white"
+            android:textColor="#407183"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonsLayout"
+        android:weightSum="3"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/log"
+            android:textAllCaps="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="log"
+            android:layout_weight="1"
+            android:textSize="24dp"
+            android:padding="12dp"
+            android:background="@android:color/white"
+            android:textColor="#407183"/>
+
+        <Button
+            android:id="@+id/exp"
+            android:layout_width="wrap_content"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:text="exp"
+            android:textSize="24dp"
+            android:padding="12dp"
+            android:background="@android:color/white"
+            android:textColor="#407183"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:id="@+id/sqrt"
+            android:layout_width="wrap_content"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:text="sqrt"
+            android:layout_weight="1"
+            android:textSize="24dp"
+            android:padding="12dp"
+            android:background="@android:color/white"
+            android:textColor="#407183"/>
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/resultBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonsLayout2"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        android:background="@android:color/background_light"
+        android:padding="16dp"
+        android:text="Result will be displayed here"/>
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Clear"
+        android:textSize="24dp"
+        android:layout_below="@id/resultBox"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"/>
+</RelativeLayout>
