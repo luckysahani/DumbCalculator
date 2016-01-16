@@ -12,7 +12,7 @@
         android:layout_marginTop="20dp"
         android:hint="Enter some number"
         android:padding="12dp"
-        android:inputType="numberDecimal"
+        android:inputType="numberDecimal|numberSigned"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
