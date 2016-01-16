@@ -9,9 +9,34 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.lucky.dumbcalculator.AdvancedCalculator"
+    tools:context=".SplashScreenActivity"
     tools:showIn="@layout/activity_advanced_calculator">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
 
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/splash_logo"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/image"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:layout_marginTop="30dp"
+            android:text="Dumb Calculator"
+            android:textColor="@android:color/white"
+            android:textSize="28sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            />
+
+    </RelativeLayout>
 
 </RelativeLayout>

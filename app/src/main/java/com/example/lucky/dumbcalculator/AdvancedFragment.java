@@ -1,5 +1,6 @@
 package com.example.lucky.dumbcalculator;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -57,6 +58,8 @@ public class AdvancedFragment extends Fragment implements View.OnClickListener{
     private String num1;
 
     private String finalResult;
+
+    private Dialog progressDialog;
 
     public AdvancedFragment() {
         // Required empty public constructor
@@ -119,6 +122,8 @@ public class AdvancedFragment extends Fragment implements View.OnClickListener{
                 number1.setError("First number is required!");
             } else {
                 hideKeyboard();
+                progressDialog = MainActivity.showProgressLoader(getActivity());
+                progressDialog.show();
                 if (v == sin) {
                     getResultFromServer(num1, "sin", sinURL);
                 } else if (v == cos) {
@@ -154,6 +159,7 @@ public class AdvancedFragment extends Fragment implements View.OnClickListener{
                                 @Override
                                 public void run() {
                                     resultText = finalResult;
+                                    progressDialog.hide();
 //                                    resultText = "The "+type+" of " + number1.getText().toString()+ " and " + number2.getText().toString()+ " is " + finalResult;
                                     resultBox.setText(resultText);
                                 }

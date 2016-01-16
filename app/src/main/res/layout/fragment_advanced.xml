@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:elevation="4dp"
+        android:elevation="2dp"
         />
 
 
@@ -132,6 +132,6 @@
         android:textSize="24dp"
         android:layout_below="@id/resultBox"
         android:layout_marginTop="20dp"
-        android:background="@android:color/holo_blue_dark"
+        android:background="#4b859a"
         android:textColor="@android:color/white"/>
 </RelativeLayout>

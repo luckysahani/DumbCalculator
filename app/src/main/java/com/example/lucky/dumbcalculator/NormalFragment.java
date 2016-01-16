@@ -1,5 +1,6 @@
 package com.example.lucky.dumbcalculator;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -59,7 +60,7 @@ public class NormalFragment extends Fragment implements View.OnClickListener{
     private String charset = "UTF-8";
 
     private String finalResult;
-
+    private Dialog progressDialog;
 
     public NormalFragment() {
         // Required empty public constructor
@@ -130,6 +131,8 @@ public class NormalFragment extends Fragment implements View.OnClickListener{
             }
             else {
                 hideKeyboard();
+                progressDialog = MainActivity.showProgressLoader(getActivity());
+                progressDialog.show();
                 if (v == add) {
                     getResultFromServer(num1, num2, "add", addURL);
                 } else if (v == multiply) {
@@ -178,6 +181,7 @@ public class NormalFragment extends Fragment implements View.OnClickListener{
                                 @Override
                                 public void run() {
                                     resultText = finalResult;
+                                    progressDialog.hide();
 //                                    resultText = "The "+type+" of " + number1.getText().toString()+ " and " + number2.getText().toString()+ " is " + finalResult;
                                     resultBox.setText(resultText);
                                 }
